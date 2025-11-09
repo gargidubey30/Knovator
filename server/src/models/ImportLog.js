@@ -2,9 +2,18 @@ const mongoose = require("mongoose");
 
 const ImportLogSchema = new mongoose.Schema(
   {
-    feedUrl: { type: String, required: true },
-    importedCount: { type: Number, required: true },
-    status: { type: String, enum: ["success", "failed"], required: true },
+    fileName: { type: String, required: true }, // feedUrl stored as fileName
+    totalFetched: { type: Number, required: true },
+    totalImported: { type: Number, required: true },
+    newJobs: { type: Number, default: 0 },
+    updatedJobs: { type: Number, default: 0 },
+    failedJobs: [
+      {
+        link: String,
+        reason: String,
+      },
+    ],
+    status: { type: String, enum: ["success", "failed"], default: "success" },
   },
   { timestamps: true }
 );
